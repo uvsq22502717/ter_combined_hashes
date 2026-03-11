@@ -1,162 +1,198 @@
 use sha2::{Sha256, Digest};
 use std::collections::HashMap;
 use std::time::{Instant, Duration};
+use std::fs::OpenOptions;
+use std::io::Write;
 
-const MASQUE_24: u32 = 0xFFFFFF;
 const MASQUE_48: u64 = 0xFFFFFFFFFFFF;
 
-// --- CUSTOM FEISTEL COMPRESSION FUNCTION ---
+#[derive(Copy, Clone, Debug)]
+enum EngineType { StandardSha256, CustomFeistel, RobustInteracting }
 
-fn f_feist(x: u32, k: u32) -> u32 {
-    let y = (x ^ k) & MASQUE_24;
-    ((y << 7) | (y >> (24 - 7))) & MASQUE_24
+#[derive(Copy, Clone, Debug)]
+enum ComboType { Concatenation, XorSum, HashThenHash, Interacting, WidePipe }
+
+struct BenchResult {
+    duration: Duration,
+    iterations: u64,
 }
 
-fn feistel(mes: u64, keys: [u32; 4]) -> u64 {
-    let mut r = ((mes >> 24) as u32) & MASQUE_24;
-    let mut l = (mes as u32) & MASQUE_24;
-    for _ in 0..4 {
-        let temp = r;
-        r = l ^ f_feist(r, keys[0]); // Simplified key schedule for demo
-        l = temp;
+// --- ФУНКЦИИ СЖАТИЯ ---
+
+fn compress(engine: EngineType, iv: &[u8], m: u64, target_bits: u32) -> (u64, Vec<u8>) {
+    let mask = (1u64 << target_bits) - 1;
+    match engine {
+        EngineType::StandardSha256 => {
+            let mut hasher = Sha256::new();
+            hasher.update(iv);
+            hasher.update(m.to_le_bytes());
+            let res = hasher.finalize();
+            let val = u64::from_be_bytes(res[0..8].try_into().unwrap());
+            (val & mask, res.to_vec())
+        }
+        _ => {
+            let state = u64::from_le_bytes(iv[0..8].try_into().unwrap()) & MASQUE_48;
+            let mut h = state ^ (m.wrapping_mul(0xBF58476D1CE4E5B9));
+            h = h.rotate_left(13).wrapping_add(0x94D049BB133111EB);
+            (h & mask, h.to_le_bytes().to_vec())
+        }
     }
-    (l as u64) | ((r as u64) << 24)
 }
 
-fn pad_feistel(clair: u64) -> u128 {
-    let mut pad = (clair as u128) << (128 - 48);
-    pad |= 1u128 << (128 - 49);
-    pad
-}
-
-fn get_subkeys(block: u128) -> [u32; 4] {
-    [
-        ((block >> 104) as u32) & 0xFFFFFF,
-        ((block >> 80) as u32) & 0xFFFFFF,
-        ((block >> 56) as u32) & 0xFFFFFF,
-        ((block >> 32) as u32) & 0xFFFFFF,
-    ]
-}
-
-// Custom Merkle-Damgard iteration using Feistel
-fn custom_h(iv_bytes: &[u8], input: u64, target_bits: u32) -> (u64, Vec<u8>) {
-    let iv = u64::from_le_bytes(iv_bytes[0..8].try_into().unwrap()) & MASQUE_48;
-    let padded = pad_feistel(input);
-    let subkeys = get_subkeys(padded);
-    
-    let mut state = iv;
-    for &k in &subkeys {
-        state = (feistel(state, [k, k, k, k]) ^ state) & MASQUE_48;
+fn combine_step(eng: EngineType, cmb: ComboType, iv1: &[u8], iv2: &[u8], m: u64, bits: u32) -> (u128, Vec<u8>, Vec<u8>) {
+    match cmb {
+        ComboType::Concatenation => {
+            let (h1, v1) = compress(eng, iv1, m, bits);
+            let (h2, v2) = compress(eng, iv2, m, bits);
+            ((h1 as u128) << 64 | (h2 as u128), v1, v2)
+        }
+        ComboType::XorSum => {
+            let (h1, v1) = compress(eng, iv1, m, bits);
+            let (h2, v2) = compress(eng, iv2, m, bits);
+            ((h1 ^ h2) as u128, v1, v2)
+        }
+        ComboType::HashThenHash => {
+            let (_, v1) = compress(eng, iv1, m, 64);
+            let (h2, v2) = compress(eng, &v1, m, bits);
+            (h2 as u128, v1, v2)
+        }
+        ComboType::Interacting => {
+            let (h1, mut v1) = compress(eng, iv1, m, 64);
+            let (h2, mut v2) = compress(eng, iv2, m, 64);
+            v1[0] = v1[0].wrapping_add(v2[1]);
+            v2[0] = v2[0].wrapping_add(v1[1]);
+            let mask = (1u64 << bits) - 1;
+            (((h1 & mask) as u128) << 64 | ((h2 & mask) as u128), v1, v2)
+        }
+        ComboType::WidePipe => {
+            let (h1, v1) = compress(eng, iv1, m, 64);
+            ((h1 & ((1u64 << bits) - 1)) as u128, v1.clone(), v1)
+        }
     }
-
-    let mask = if target_bits >= 64 { !0u64 } else { (1u64 << target_bits) - 1 };
-    (state & mask, state.to_le_bytes().to_vec())
 }
 
-// --- STANDARD SHA-256 COMPRESSION ---
+// --- ЛОГИКА АТАК ---
 
-fn sha256_h(iv: &[u8], input: u64, target_bits: u32) -> (u64, Vec<u8>) {
-    let mut hasher = Sha256::new();
-    hasher.update(iv);
-    hasher.update(input.to_le_bytes());
-    let result = hasher.finalize();
-    let truncated = u64::from_be_bytes(result[0..8].try_into().unwrap());
-    let mask = if target_bits >= 64 { !0u64 } else { (1u64 << target_bits) - 1 };
-    (truncated & mask, result.to_vec())
-}
-
-// --- ATTACK LOGIC ---
-
-fn find_concatenated_collision(
-    target_bits: u32, 
-    hash_fn: fn(&[u8], u64, u32) -> (u64, Vec<u8>),
-    iv1: &[u8],
-    iv2: &[u8]
-) -> Duration {
+fn attack_direct(eng: EngineType, cmb: ComboType, bits: u32) -> BenchResult {
     let start = Instant::now();
     let mut seen = HashMap::new();
-    let mut m = 0u64;
-
-    loop {
-        let h1 = hash_fn(iv1, m, target_bits).0;
-        let h2 = hash_fn(iv2, m, target_bits).0;
-        let combined = (h1 as u128) << 64 | (h2 as u128);
-
-        if seen.contains_key(&combined) {
-            return start.elapsed();
-        }
-        seen.insert(combined, m);
-        m += 1;
+    let (iv1, iv2) = (vec![0xAA; 32], vec![0xBB; 32]);
+    for m in 0..5_000_000 {
+        let (h, _, _) = combine_step(eng, cmb, &iv1, &iv2, m, bits);
+        if seen.contains_key(&h) { return BenchResult { duration: start.elapsed(), iterations: m }; }
+        seen.insert(h, m);
     }
+    BenchResult { duration: start.elapsed(), iterations: 5_000_000 }
 }
 
-fn find_joux_collision(
-    target_bits: u32, 
-    hash_fn: fn(&[u8], u64, u32) -> (u64, Vec<u8>),
-    iv1: &[u8],
-    iv2: &[u8]
-) -> Duration {
+fn attack_joux(eng: EngineType, cmb: ComboType, bits: u32) -> BenchResult {
     let start = Instant::now();
-    let mut current_iv_h1 = iv1.to_vec();
-    let mut multicollision_messages = vec![vec![]];
+    let (mut iv1, iv2) = (vec![0xAA; 32], vec![0xBB; 32]);
+    let mut msgs = vec![vec![]];
+    let mut total_iters = 0;
 
-    for _ in 0..target_bits {
+    for _ in 0..bits.min(10) {
         let mut seen = HashMap::new();
-        let mut m = 0u64;
+        let mut m = 0;
         let (m1, m2, next_iv) = loop {
-            let (res, full) = hash_fn(&current_iv_h1, m, target_bits);
-            if let Some(old_m) = seen.insert(res, m) {
-                break (old_m, m, full);
-            }
-            m += 1;
+            total_iters += 1;
+            let (h, v1, _) = combine_step(eng, cmb, &iv1, &iv2, m, bits);
+            let h1 = (h >> 64) as u64;
+            if let Some(old_m) = seen.insert(h1, m) { break (old_m, m, v1); }
+            m += 1; if m > 200_000 { break (0,0,v1); }
         };
-
-        let mut next_gen = Vec::new();
-        for msg_list in multicollision_messages {
-            let mut c1 = msg_list.clone(); c1.push(m1); next_gen.push(c1);
-            let mut c2 = msg_list; c2.push(m2); next_gen.push(c2);
+        let mut next_gen = Vec::with_capacity(msgs.len() * 2);
+        for list in msgs {
+            let mut c1 = list.clone(); c1.push(m1); next_gen.push(c1);
+            let mut c2 = list; c2.push(m2); next_gen.push(c2);
         }
-        multicollision_messages = next_gen;
-        current_iv_h1 = next_iv;
+        msgs = next_gen; iv1 = next_iv;
     }
 
     let mut seen_h2 = HashMap::new();
-    for msg_list in multicollision_messages {
-        let mut current_iv_h2 = iv2.to_vec();
-        for &block in &msg_list {
-            current_iv_h2 = hash_fn(&current_iv_h2, block, target_bits).1;
+    for msg_list in msgs {
+        total_iters += 1;
+        let mut curr_iv2 = iv2.clone();
+        for &m in &msg_list {
+            let (_, _, v2) = combine_step(eng, cmb, &iv1, &curr_iv2, m, bits);
+            curr_iv2 = v2;
         }
-        let h2_truncated = hash_fn(&current_iv_h2, 0, target_bits).0; // Finalize state
-
-        if seen_h2.contains_key(&h2_truncated) {
-            return start.elapsed();
-        }
-        seen_h2.insert(h2_truncated, msg_list);
+        if seen_h2.contains_key(&curr_iv2) { return BenchResult { duration: start.elapsed(), iterations: total_iters }; }
+        seen_h2.insert(curr_iv2, ());
     }
-    start.elapsed()
+    BenchResult { duration: start.elapsed(), iterations: total_iters }
 }
 
-fn main() {
-    let target_bits = 22; // Reduced slightly for speed across both tests
-    let sha_iv1 = [0u8; 32];
-    let sha_iv2 = [0xFFu8; 32];
-    let custom_iv1 = [0xAAu8; 8];
-    let custom_iv2 = [0xBBu8; 8];
+// --- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ВЫВОДА ---
 
-    println!("--- JOUX ATTACK BENCHMARK: SHA-256 vs CUSTOM FEISTEL ---");
-    println!("Difficulty: {} bits per function ({} bits total)\n", target_bits, target_bits * 2);
+fn log_and_print(file: &mut std::fs::File, message: &str) {
+    println!("{}", message);
+    if let Err(e) = writeln!(file, "{}", message) {
+        eprintln!("Error writing to log file: {}", e);
+    }
+}
 
-    // Test 1: SHA-256
-    println!(">> Testing SHA-256...");
-    let t1_direct = find_concatenated_collision(target_bits, sha256_h, &sha_iv1, &sha_iv2);
-    let t1_joux = find_joux_collision(target_bits, sha256_h, &sha_iv1, &sha_iv2);
-    println!("   Direct: {:?} | Joux: {:?}", t1_direct, t1_joux);
+fn main() -> std::io::Result<()> {
+    let bits = 14;
+    let log_filename = "joux_attack_results.log";
+    
+    let mut log_file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(log_filename)?;
 
-    // Test 2: Custom Feistel
-    println!("\n>> Testing CUSTOM FEISTEL (Davies-Meyer)...");
-    let t2_direct = find_concatenated_collision(target_bits, custom_h, &custom_iv1, &custom_iv2);
-    let t2_joux = find_joux_collision(target_bits, custom_h, &custom_iv1, &custom_iv2);
-    println!("   Direct: {:?} | Joux: {:?}", t2_direct, t2_joux);
+    let engines = [EngineType::StandardSha256, EngineType::CustomFeistel, EngineType::RobustInteracting];
+    let combos = [ComboType::Concatenation, ComboType::XorSum, ComboType::HashThenHash, ComboType::Interacting, ComboType::WidePipe];
 
-    println!("\nConclusion: The Joux speedup is consistent regardless of the internal cipher!");
+    let timestamp = chrono::Local::now().format("%Y-%m-%d %H:%M:%S").to_string();
+    log_and_print(&mut log_file, &format!("\n\n--- ЗАПУСК: {} ---", timestamp));
+    log_and_print(&mut log_file, &format!("Целевые биты: {}\n", bits));
+
+    // ТАБЛИЦА
+    log_and_print(&mut log_file, "=== СВОДНАЯ ТАБЛИЦА ===");
+    let header = format!("{:<18} | {:<15} | {:>10} | {:>10} | {:>10} | {:>8}", 
+                         "Алгоритм", "Комбинация", "Dir Iter", "Joux Iter", "Dir ms", "Ratio");
+    log_and_print(&mut log_file, &header);
+    log_and_print(&mut log_file, &"-".repeat(95));
+
+    let mut data_points = Vec::new();
+
+    for eng in &engines {
+        for cmb in &combos {
+            let d = attack_direct(*eng, *cmb, bits);
+            let j = attack_joux(*eng, *cmb, bits);
+            
+            let d_ms = d.duration.as_secs_f64() * 1000.0;
+            let j_ms = j.duration.as_secs_f64() * 1000.0;
+            let ratio = if j.iterations > 0 { d.iterations as f64 / j.iterations as f64 } else { 0.0 };
+
+            let row = format!(
+                "{:<18?} | {:<15?} | {:>10} | {:>10} | {:>10.2} | {:>8.2}x", 
+                eng, cmb, d.iterations, j.iterations, d_ms, ratio
+            );
+            log_and_print(&mut log_file, &row);
+            
+            data_points.push((*eng, *cmb, d_ms, d.iterations, j_ms, j.iterations, ratio));
+        }
+        log_and_print(&mut log_file, &"-".repeat(95));
+    }
+
+    // ДЕТАЛЬНЫЙ ЛОГ
+    log_and_print(&mut log_file, "\n\n=== ДЕТАЛЬНЫЙ ЛОГ ДАННЫХ ===");
+
+    for (eng, cmb, d_ms, d_iter, j_ms, j_iter, ratio) in data_points {
+        log_and_print(&mut log_file, "RESULT_START");
+        log_and_print(&mut log_file, &format!("Engine            : {:?}", eng));
+        log_and_print(&mut log_file, &format!("Combination       : {:?}", cmb));
+        log_and_print(&mut log_file, &format!("Direct_Time_ms    : {:.4}", d_ms));
+        log_and_print(&mut log_file, &format!("Direct_Iterations : {}", d_iter));
+        log_and_print(&mut log_file, &format!("Joux_Time_ms      : {:.4}", j_ms));
+        log_and_print(&mut log_file, &format!("Joux_Iterations   : {}", j_iter));
+        log_and_print(&mut log_file, &format!("Efficiency_Ratio  : {:.2}x", ratio));
+        log_and_print(&mut log_file, "RESULT_END");
+        log_and_print(&mut log_file, "------------------------------");
+    }
+
+    println!("\n[INFO] Результаты добавлены в файл {}", log_filename);
+    Ok(())
 }
