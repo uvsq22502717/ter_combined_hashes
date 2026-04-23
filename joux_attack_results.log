@@ -1284,3 +1284,619 @@ Joux_Iterations   : 61
 Efficiency_Ratio  : 0.02x
 RESULT_END
 ------------------------------
+
+
+--- BENCHMARK START: 2026-03-19 12:19:34 ---
+Target Search Bits: 14
+
+=== SUMMARY TABLE VIEW ===
+Algorithm          | Combination       |   Dir Iter |  Joux Iter |    Ratio
+---------------------------------------------------------------------------
+StandardSha256 | Concatenation |      17957 |       2463 |     7.29x
+StandardSha256 | XorSum |         73 |       1044 |     0.07x
+StandardSha256 | HashThenHash |        189 |         23 |     8.22x
+StandardSha256 | Interacting |          1 |       1044 |     0.00x
+StandardSha256 | WidePipe |          1 |         23 |     0.04x
+StandardSha256 | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+CustomFeistel | Concatenation |       6838 |      68407 |     0.10x
+CustomFeistel | XorSum |          1 |         53 |     0.02x
+CustomFeistel | HashThenHash |       6838 |         23 |   297.30x
+CustomFeistel | Interacting |          1 |         53 |     0.02x
+CustomFeistel | WidePipe |          1 |         23 |     0.04x
+CustomFeistel | RobustInteraction |          1 |         61 |     0.02x
+---------------------------------------------------------------------------
+RobustInteracting | Concatenation |       6838 |      68407 |     0.10x
+RobustInteracting | XorSum |          1 |         53 |     0.02x
+RobustInteracting | HashThenHash |       6838 |         23 |   297.30x
+RobustInteracting | Interacting |          1 |         53 |     0.02x
+RobustInteracting | WidePipe |          1 |         23 |     0.04x
+RobustInteracting | RobustInteraction |          1 |         61 |     0.02x
+---------------------------------------------------------------------------
+
+
+=== DETAILED DATA EXPORT ===
+RESULT_START
+Engine            : StandardSha256
+Combination       : Concatenation
+Direct_Time_ms    : 16.6548
+Direct_Iterations : 17957
+Joux_Time_ms      : 9.7517
+Joux_Iterations   : 2463
+Efficiency_Ratio  : 7.29x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : StandardSha256
+Combination       : XorSum
+Direct_Time_ms    : 0.0734
+Direct_Iterations : 73
+Joux_Time_ms      : 9.3893
+Joux_Iterations   : 1044
+Efficiency_Ratio  : 0.07x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : StandardSha256
+Combination       : HashThenHash
+Direct_Time_ms    : 0.1734
+Direct_Iterations : 189
+Joux_Time_ms      : 0.2668
+Joux_Iterations   : 23
+Efficiency_Ratio  : 8.22x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : StandardSha256
+Combination       : Interacting
+Direct_Time_ms    : 0.0046
+Direct_Iterations : 1
+Joux_Time_ms      : 7.7379
+Joux_Iterations   : 1044
+Efficiency_Ratio  : 0.00x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : StandardSha256
+Combination       : WidePipe
+Direct_Time_ms    : 0.0029
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2085
+Joux_Iterations   : 23
+Efficiency_Ratio  : 0.04x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : StandardSha256
+Combination       : RobustInteraction
+Direct_Time_ms    : 0.0028
+Direct_Iterations : 1
+Joux_Time_ms      : 7.7833
+Joux_Iterations   : 1044
+Efficiency_Ratio  : 0.00x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : Concatenation
+Direct_Time_ms    : 1.2780
+Direct_Iterations : 6838
+Joux_Time_ms      : 12.3154
+Joux_Iterations   : 68407
+Efficiency_Ratio  : 0.10x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : XorSum
+Direct_Time_ms    : 0.0021
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2608
+Joux_Iterations   : 53
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : HashThenHash
+Direct_Time_ms    : 1.3733
+Direct_Iterations : 6838
+Joux_Time_ms      : 0.2644
+Joux_Iterations   : 23
+Efficiency_Ratio  : 297.30x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : Interacting
+Direct_Time_ms    : 0.0014
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2211
+Joux_Iterations   : 53
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : WidePipe
+Direct_Time_ms    : 0.0016
+Direct_Iterations : 1
+Joux_Time_ms      : 0.1960
+Joux_Iterations   : 23
+Efficiency_Ratio  : 0.04x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : RobustInteraction
+Direct_Time_ms    : 0.0015
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2472
+Joux_Iterations   : 61
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : Concatenation
+Direct_Time_ms    : 1.2912
+Direct_Iterations : 6838
+Joux_Time_ms      : 11.8813
+Joux_Iterations   : 68407
+Efficiency_Ratio  : 0.10x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : XorSum
+Direct_Time_ms    : 0.0018
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2472
+Joux_Iterations   : 53
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : HashThenHash
+Direct_Time_ms    : 1.4224
+Direct_Iterations : 6838
+Joux_Time_ms      : 0.1747
+Joux_Iterations   : 23
+Efficiency_Ratio  : 297.30x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : Interacting
+Direct_Time_ms    : 0.0020
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2453
+Joux_Iterations   : 53
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : WidePipe
+Direct_Time_ms    : 0.0018
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2080
+Joux_Iterations   : 23
+Efficiency_Ratio  : 0.04x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : RobustInteraction
+Direct_Time_ms    : 0.0020
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2552
+Joux_Iterations   : 61
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+
+
+--- BENCHMARK START: 2026-04-09 14:36:23 ---
+Target Search Bits: 14
+
+=== SUMMARY TABLE VIEW ===
+Algorithm          | Combination       |   Dir Iter |  Joux Iter |    Ratio
+---------------------------------------------------------------------------
+StandardSha256 | Concatenation |      17957 |       2463 |     7.29x
+StandardSha256 | XorSum |         73 |       1044 |     0.07x
+StandardSha256 | HashThenHash |        189 |         23 |     8.22x
+StandardSha256 | Interacting |          1 |       1044 |     0.00x
+StandardSha256 | WidePipe |          1 |         23 |     0.04x
+StandardSha256 | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+CustomFeistel | Concatenation |       6838 |      68407 |     0.10x
+CustomFeistel | XorSum |          1 |         53 |     0.02x
+CustomFeistel | HashThenHash |       6838 |         23 |   297.30x
+CustomFeistel | Interacting |          1 |         53 |     0.02x
+CustomFeistel | WidePipe |          1 |         23 |     0.04x
+CustomFeistel | RobustInteraction |          1 |         61 |     0.02x
+---------------------------------------------------------------------------
+RobustInteracting | Concatenation |       6838 |      68407 |     0.10x
+RobustInteracting | XorSum |          1 |         53 |     0.02x
+RobustInteracting | HashThenHash |       6838 |         23 |   297.30x
+RobustInteracting | Interacting |          1 |         53 |     0.02x
+RobustInteracting | WidePipe |          1 |         23 |     0.04x
+RobustInteracting | RobustInteraction |          1 |         61 |     0.02x
+---------------------------------------------------------------------------
+
+
+=== DETAILED DATA EXPORT ===
+RESULT_START
+Engine            : StandardSha256
+Combination       : Concatenation
+Direct_Time_ms    : 19.7638
+Direct_Iterations : 17957
+Joux_Time_ms      : 10.1884
+Joux_Iterations   : 2463
+Efficiency_Ratio  : 7.29x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : StandardSha256
+Combination       : XorSum
+Direct_Time_ms    : 0.0805
+Direct_Iterations : 73
+Joux_Time_ms      : 9.0761
+Joux_Iterations   : 1044
+Efficiency_Ratio  : 0.07x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : StandardSha256
+Combination       : HashThenHash
+Direct_Time_ms    : 0.1819
+Direct_Iterations : 189
+Joux_Time_ms      : 0.2701
+Joux_Iterations   : 23
+Efficiency_Ratio  : 8.22x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : StandardSha256
+Combination       : Interacting
+Direct_Time_ms    : 0.0032
+Direct_Iterations : 1
+Joux_Time_ms      : 9.0722
+Joux_Iterations   : 1044
+Efficiency_Ratio  : 0.00x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : StandardSha256
+Combination       : WidePipe
+Direct_Time_ms    : 0.0064
+Direct_Iterations : 1
+Joux_Time_ms      : 0.3289
+Joux_Iterations   : 23
+Efficiency_Ratio  : 0.04x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : StandardSha256
+Combination       : RobustInteraction
+Direct_Time_ms    : 0.0030
+Direct_Iterations : 1
+Joux_Time_ms      : 9.0503
+Joux_Iterations   : 1044
+Efficiency_Ratio  : 0.00x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : Concatenation
+Direct_Time_ms    : 1.6538
+Direct_Iterations : 6838
+Joux_Time_ms      : 14.1053
+Joux_Iterations   : 68407
+Efficiency_Ratio  : 0.10x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : XorSum
+Direct_Time_ms    : 0.0026
+Direct_Iterations : 1
+Joux_Time_ms      : 0.4703
+Joux_Iterations   : 53
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : HashThenHash
+Direct_Time_ms    : 1.5859
+Direct_Iterations : 6838
+Joux_Time_ms      : 0.2261
+Joux_Iterations   : 23
+Efficiency_Ratio  : 297.30x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : Interacting
+Direct_Time_ms    : 0.0022
+Direct_Iterations : 1
+Joux_Time_ms      : 0.4485
+Joux_Iterations   : 53
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : WidePipe
+Direct_Time_ms    : 0.0031
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2541
+Joux_Iterations   : 23
+Efficiency_Ratio  : 0.04x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : CustomFeistel
+Combination       : RobustInteraction
+Direct_Time_ms    : 0.0030
+Direct_Iterations : 1
+Joux_Time_ms      : 0.4344
+Joux_Iterations   : 61
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : Concatenation
+Direct_Time_ms    : 1.7086
+Direct_Iterations : 6838
+Joux_Time_ms      : 13.9529
+Joux_Iterations   : 68407
+Efficiency_Ratio  : 0.10x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : XorSum
+Direct_Time_ms    : 0.0029
+Direct_Iterations : 1
+Joux_Time_ms      : 0.4658
+Joux_Iterations   : 53
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : HashThenHash
+Direct_Time_ms    : 1.4916
+Direct_Iterations : 6838
+Joux_Time_ms      : 0.2001
+Joux_Iterations   : 23
+Efficiency_Ratio  : 297.30x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : Interacting
+Direct_Time_ms    : 0.0021
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2771
+Joux_Iterations   : 53
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : WidePipe
+Direct_Time_ms    : 0.0018
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2047
+Joux_Iterations   : 23
+Efficiency_Ratio  : 0.04x
+RESULT_END
+------------------------------
+RESULT_START
+Engine            : RobustInteracting
+Combination       : RobustInteraction
+Direct_Time_ms    : 0.0022
+Direct_Iterations : 1
+Joux_Time_ms      : 0.2766
+Joux_Iterations   : 61
+Efficiency_Ratio  : 0.02x
+RESULT_END
+------------------------------
+
+
+--- BENCHMARK START: 2026-04-09 14:47:38 ---
+Target Search Bits: 14
+
+=== SUMMARY TABLE VIEW ===
+Algorithm          | Combination       |   Dir Iter |  Joux Iter |    Ratio
+---------------------------------------------------------------------------
+StandardSha256 | Concatenation |      17957 |       2463 |     7.29x
+StandardSha256 | XorSum |         73 |       1044 |     0.07x
+StandardSha256 | HashThenHash |        189 |         23 |     8.22x
+StandardSha256 | Interacting |          1 |       1044 |     0.00x
+StandardSha256 | WidePipe |          1 |         23 |     0.04x
+StandardSha256 | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+CustomFeistel | Concatenation |       3542 |       1620 |     2.19x
+CustomFeistel | XorSum |         47 |       1044 |     0.05x
+CustomFeistel | HashThenHash |        119 |         23 |     5.17x
+CustomFeistel | Interacting |          1 |       1044 |     0.00x
+CustomFeistel | WidePipe |          1 |         23 |     0.04x
+CustomFeistel | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+RobustInteracting | Concatenation |       3542 |       1620 |     2.19x
+RobustInteracting | XorSum |         47 |       1044 |     0.05x
+RobustInteracting | HashThenHash |        119 |         23 |     5.17x
+RobustInteracting | Interacting |          1 |       1044 |     0.00x
+RobustInteracting | WidePipe |          1 |         23 |     0.04x
+RobustInteracting | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+
+
+--- BENCHMARK START: 2026-04-09 14:47:41 ---
+Target Search Bits: 14
+
+=== SUMMARY TABLE VIEW ===
+Algorithm          | Combination       |   Dir Iter |  Joux Iter |    Ratio
+---------------------------------------------------------------------------
+StandardSha256 | Concatenation |      17957 |       2463 |     7.29x
+StandardSha256 | XorSum |         73 |       1044 |     0.07x
+StandardSha256 | HashThenHash |        189 |         23 |     8.22x
+StandardSha256 | Interacting |          1 |       1044 |     0.00x
+StandardSha256 | WidePipe |          1 |         23 |     0.04x
+StandardSha256 | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+CustomFeistel | Concatenation |       3542 |       1620 |     2.19x
+CustomFeistel | XorSum |         47 |       1044 |     0.05x
+CustomFeistel | HashThenHash |        119 |         23 |     5.17x
+CustomFeistel | Interacting |          1 |       1044 |     0.00x
+CustomFeistel | WidePipe |          1 |         23 |     0.04x
+CustomFeistel | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+RobustInteracting | Concatenation |       3542 |       1620 |     2.19x
+RobustInteracting | XorSum |         47 |       1044 |     0.05x
+RobustInteracting | HashThenHash |        119 |         23 |     5.17x
+RobustInteracting | Interacting |          1 |       1044 |     0.00x
+RobustInteracting | WidePipe |          1 |         23 |     0.04x
+RobustInteracting | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+
+
+--- BENCHMARK START: 2026-04-09 14:47:55 ---
+Target Search Bits: 14
+
+=== SUMMARY TABLE VIEW ===
+Algorithm          | Combination       |   Dir Iter |  Joux Iter |    Ratio
+---------------------------------------------------------------------------
+StandardSha256 | Concatenation |      17957 |       2463 |     7.29x
+StandardSha256 | XorSum |         73 |       1044 |     0.07x
+StandardSha256 | HashThenHash |        189 |         23 |     8.22x
+StandardSha256 | Interacting |          1 |       1044 |     0.00x
+StandardSha256 | WidePipe |          1 |         23 |     0.04x
+StandardSha256 | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+CustomFeistel | Concatenation |       3542 |       1620 |     2.19x
+CustomFeistel | XorSum |         47 |       1044 |     0.05x
+CustomFeistel | HashThenHash |        119 |         23 |     5.17x
+CustomFeistel | Interacting |          1 |       1044 |     0.00x
+CustomFeistel | WidePipe |          1 |         23 |     0.04x
+CustomFeistel | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+RobustInteracting | Concatenation |       3542 |       1620 |     2.19x
+RobustInteracting | XorSum |         47 |       1044 |     0.05x
+RobustInteracting | HashThenHash |        119 |         23 |     5.17x
+RobustInteracting | Interacting |          1 |       1044 |     0.00x
+RobustInteracting | WidePipe |          1 |         23 |     0.04x
+RobustInteracting | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+
+
+--- BENCHMARK START: 2026-04-09 14:50:31 ---
+Target Search Bits: 14
+
+=== SUMMARY TABLE VIEW ===
+Algorithm          | Combination       |   Dir Iter |  Joux Iter |    Ratio
+---------------------------------------------------------------------------
+StandardSha256 | Concatenation |      17957 |       2463 |     7.29x
+StandardSha256 | XorSum |         73 |       1044 |     0.07x
+StandardSha256 | HashThenHash |        189 |         23 |     8.22x
+StandardSha256 | Interacting |          1 |       1044 |     0.00x
+StandardSha256 | WidePipe |          1 |         23 |     0.04x
+StandardSha256 | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+CustomFeistel | Concatenation |       3542 |       1620 |     2.19x
+CustomFeistel | XorSum |         47 |       1044 |     0.05x
+CustomFeistel | HashThenHash |        119 |         23 |     5.17x
+CustomFeistel | Interacting |          1 |       1044 |     0.00x
+CustomFeistel | WidePipe |          1 |         23 |     0.04x
+CustomFeistel | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+RobustInteracting | Concatenation |       3542 |       1620 |     2.19x
+RobustInteracting | XorSum |         47 |       1044 |     0.05x
+RobustInteracting | HashThenHash |        119 |         23 |     5.17x
+RobustInteracting | Interacting |          1 |       1044 |     0.00x
+RobustInteracting | WidePipe |          1 |         23 |     0.04x
+RobustInteracting | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+
+
+--- BENCHMARK START: 2026-04-09 14:52:29 ---
+Algorithm          | Combination       |   Dir Iter |  Joux Iter |    Ratio
+---------------------------------------------------------------------------
+StandardSha256 | Concatenation |      17957 |       2463 |     7.29x
+StandardSha256 | XorSum |         73 |       1044 |     0.07x
+StandardSha256 | HashThenHash |        189 |         23 |     8.22x
+StandardSha256 | Interacting |          1 |       1044 |     0.00x
+StandardSha256 | WidePipe |          1 |         23 |     0.04x
+StandardSha256 | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+CustomFeistel | Concatenation |       3542 |       1620 |     2.19x
+CustomFeistel | XorSum |         47 |       1044 |     0.05x
+CustomFeistel | HashThenHash |        119 |         23 |     5.17x
+CustomFeistel | Interacting |          1 |       1044 |     0.00x
+CustomFeistel | WidePipe |          1 |         23 |     0.04x
+CustomFeistel | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+RobustInteracting | Concatenation |       3542 |       1620 |     2.19x
+RobustInteracting | XorSum |         47 |       1044 |     0.05x
+RobustInteracting | HashThenHash |        119 |         23 |     5.17x
+RobustInteracting | Interacting |          1 |       1044 |     0.00x
+RobustInteracting | WidePipe |          1 |         23 |     0.04x
+RobustInteracting | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+
+--- BENCHMARK START: 2026-04-09 14:54:35 ---
+Algorithm          | Combination       |   Dir Iter |  Joux Iter |    Ratio
+---------------------------------------------------------------------------
+StandardSha256 | Concatenation |      17957 |       2463 |     7.29x
+StandardSha256 | XorSum |         73 |       1044 |     0.07x
+StandardSha256 | HashThenHash |        189 |         23 |     8.22x
+StandardSha256 | Interacting |          1 |       1044 |     0.00x
+StandardSha256 | WidePipe |          1 |         23 |     0.04x
+StandardSha256 | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+CustomFeistel | Concatenation |       3542 |       1620 |     2.19x
+CustomFeistel | XorSum |         47 |       1044 |     0.05x
+CustomFeistel | HashThenHash |        119 |         23 |     5.17x
+CustomFeistel | Interacting |          1 |       1044 |     0.00x
+CustomFeistel | WidePipe |          1 |         23 |     0.04x
+CustomFeistel | RobustInteraction |          1 |       1044 |     0.00x
+---------------------------------------------------------------------------
+
+--- BENCHMARK START: 2026-04-09 17:19:01 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+--------------------------------------------------------------------------------
+StandardSha256 | Concatenation |      17957 |       2463 |     7.29x
+StandardSha256 | XorSum |         73 |       1044 |     0.07x
+StandardSha256 | HashThenHash |        189 |         23 |     8.22x
+StandardSha256 | Interacting |          1 |       1044 |     0.00x
+StandardSha256 | WidePipe |          1 |         23 |     0.04x
+StandardSha256 | RobustInteraction |          1 |       1044 |     0.00x
+--------------------------------------------------------------------------------
+CustomFeistel | Concatenation |       3542 |       1620 |     2.19x
+CustomFeistel | XorSum |         47 |       1044 |     0.05x
+CustomFeistel | HashThenHash |        119 |         23 |     5.17x
+CustomFeistel | Interacting |          1 |       1044 |     0.00x
+CustomFeistel | WidePipe |          1 |         23 |     0.04x
+CustomFeistel | RobustInteraction |          1 |       1044 |     0.00x
+--------------------------------------------------------------------------------
+Sha256PlusFeistel | Concatenation |      15567 |       2463 |     6.32x
+Sha256PlusFeistel | XorSum |        242 |       1044 |     0.23x
+Sha256PlusFeistel | HashThenHash |        105 |         23 |     4.57x
+Sha256PlusFeistel | Interacting |          1 |       1044 |     0.00x
+Sha256PlusFeistel | WidePipe |          1 |         23 |     0.04x
+Sha256PlusFeistel | RobustInteraction |          1 |       1044 |     0.00x
+--------------------------------------------------------------------------------
+FeistelPlusSha256 | Concatenation |       5398 |       1620 |     3.33x
+FeistelPlusSha256 | XorSum |        121 |       1044 |     0.12x
+FeistelPlusSha256 | HashThenHash |        198 |         23 |     8.61x
+FeistelPlusSha256 | Interacting |          1 |       1044 |     0.00x
+FeistelPlusSha256 | WidePipe |          1 |         23 |     0.04x
+FeistelPlusSha256 | RobustInteraction |          1 |       1044 |     0.00x
+--------------------------------------------------------------------------------
