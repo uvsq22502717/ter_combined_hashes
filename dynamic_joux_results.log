@@ -1,0 +1,368 @@
+
+--- START: bits=26 | Direct Limit=134217728 | Joux Levels=12 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+
+--- START: bits=14 | Direct Limit=32768 | Joux Levels=8 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |      32768 |       1637 |    20.02x
+StandardSha256 | XorSum |        233 |        272 |     0.86x
+StandardSha256 | HashThenHash |        204 |       1234 |     0.17x
+StandardSha256 | Interacting |      32768 |       1384 |    23.68x
+StandardSha256 | WidePipe |        280 |       1384 |     0.20x
+StandardSha256 | RobustInteraction |      12733 |       1637 |     7.78x
+CustomFeistel | Concatenation |       6440 |       1533 |     4.20x
+CustomFeistel | XorSum |         47 |        272 |     0.17x
+CustomFeistel | HashThenHash |        180 |       1147 |     0.16x
+CustomFeistel | Interacting |       7329 |       1280 |     5.73x
+CustomFeistel | WidePipe |        178 |       1280 |     0.14x
+CustomFeistel | RobustInteraction |       4586 |       1533 |     2.99x
+Sha256PlusFeistel | Concatenation |      22061 |       1637 |    13.48x
+Sha256PlusFeistel | XorSum |        100 |        272 |     0.37x
+Sha256PlusFeistel | HashThenHash |        169 |       1797 |     0.09x
+Sha256PlusFeistel | Interacting |      11022 |       1384 |     7.96x
+Sha256PlusFeistel | WidePipe |        280 |       1384 |     0.20x
+Sha256PlusFeistel | RobustInteraction |      20951 |       1637 |    12.80x
+FeistelPlusSha256 | Concatenation |      11978 |       1533 |     7.81x
+FeistelPlusSha256 | XorSum |        101 |        272 |     0.37x
+FeistelPlusSha256 | HashThenHash |         75 |       1351 |     0.06x
+FeistelPlusSha256 | Interacting |       1474 |       1280 |     1.15x
+FeistelPlusSha256 | WidePipe |        178 |       1280 |     0.14x
+FeistelPlusSha256 | RobustInteraction |      28326 |       1533 |    18.48x
+
+--- START: bits=14 | Direct Limit=32768 | Joux Levels=8 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |      32768 |       1637 |    20.02x
+StandardSha256 | XorSum |        233 |        272 |     0.86x
+StandardSha256 | HashThenHash |        204 |       1234 |     0.17x
+StandardSha256 | Interacting |      32768 |       1384 |    23.68x
+StandardSha256 | WidePipe |        280 |       1384 |     0.20x
+StandardSha256 | RobustInteraction |      12733 |       1637 |     7.78x
+CustomFeistel | Concatenation |       6440 |       1533 |     4.20x
+CustomFeistel | XorSum |         47 |        272 |     0.17x
+CustomFeistel | HashThenHash |        180 |       1147 |     0.16x
+CustomFeistel | Interacting |       7329 |       1280 |     5.73x
+CustomFeistel | WidePipe |        178 |       1280 |     0.14x
+CustomFeistel | RobustInteraction |       4586 |       1533 |     2.99x
+Sha256PlusFeistel | Concatenation |      22061 |       1637 |    13.48x
+Sha256PlusFeistel | XorSum |        100 |        272 |     0.37x
+Sha256PlusFeistel | HashThenHash |        169 |       1797 |     0.09x
+Sha256PlusFeistel | Interacting |      11022 |       1384 |     7.96x
+Sha256PlusFeistel | WidePipe |        280 |       1384 |     0.20x
+Sha256PlusFeistel | RobustInteraction |      20951 |       1637 |    12.80x
+FeistelPlusSha256 | Concatenation |      11978 |       1533 |     7.81x
+FeistelPlusSha256 | XorSum |        101 |        272 |     0.37x
+FeistelPlusSha256 | HashThenHash |         75 |       1351 |     0.06x
+FeistelPlusSha256 | Interacting |       1474 |       1280 |     1.15x
+FeistelPlusSha256 | WidePipe |        178 |       1280 |     0.14x
+FeistelPlusSha256 | RobustInteraction |      28326 |       1533 |    18.48x
+
+--- START: bits=20 | Direct Limit=2097152 | Joux Levels=10 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |     448636 |      17605 |    25.48x
+StandardSha256 | XorSum |       3035 |       1044 |     2.91x
+StandardSha256 | HashThenHash |        348 |      10456 |     0.03x
+StandardSha256 | Interacting |    1294598 |      16584 |    78.06x
+StandardSha256 | WidePipe |       1507 |      16584 |     0.09x
+StandardSha256 | RobustInteraction |     790196 |      17605 |    44.88x
+CustomFeistel | Concatenation |     533814 |      16484 |    32.38x
+CustomFeistel | XorSum |        139 |       1044 |     0.13x
+CustomFeistel | HashThenHash |       1520 |      13363 |     0.11x
+CustomFeistel | Interacting |     159571 |      15463 |    10.32x
+CustomFeistel | WidePipe |       1471 |      15463 |     0.10x
+CustomFeistel | RobustInteraction |     615246 |      16484 |    37.32x
+Sha256PlusFeistel | Concatenation |     454458 |      17605 |    25.81x
+Sha256PlusFeistel | XorSum |       1187 |       1044 |     1.14x
+Sha256PlusFeistel | HashThenHash |       1062 |      17691 |     0.06x
+Sha256PlusFeistel | Interacting |     657076 |      16584 |    39.62x
+Sha256PlusFeistel | WidePipe |       1507 |      16584 |     0.09x
+Sha256PlusFeistel | RobustInteraction |    2045838 |      17605 |   116.21x
+FeistelPlusSha256 | Concatenation |    2029824 |      16484 |   123.14x
+FeistelPlusSha256 | XorSum |       1108 |       1044 |     1.06x
+FeistelPlusSha256 | HashThenHash |        551 |       9211 |     0.06x
+FeistelPlusSha256 | Interacting |     919468 |      15463 |    59.46x
+FeistelPlusSha256 | WidePipe |       1471 |      15463 |     0.10x
+FeistelPlusSha256 | RobustInteraction |    1567395 |      16484 |    95.09x
+
+--- START: bits=24 | Direct Limit=33554432 | Joux Levels=12 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |   33398056 |      68577 |   487.02x
+StandardSha256 | XorSum |       5096 |       4120 |     1.24x
+StandardSha256 | HashThenHash |       3970 |      60831 |     0.07x
+StandardSha256 | Interacting |   33167730 |      64484 |   514.36x
+StandardSha256 | WidePipe |       2955 |      64484 |     0.05x
+StandardSha256 | RobustInteraction |   13689398 |      68577 |   199.62x
+CustomFeistel | Concatenation |   24775768 |      73139 |   338.75x
+CustomFeistel | XorSum |       5598 |       4120 |     1.36x
+CustomFeistel | HashThenHash |       2652 |      71673 |     0.04x
+CustomFeistel | Interacting |    6448915 |      69046 |    93.40x
+CustomFeistel | WidePipe |       5321 |      69046 |     0.08x
+CustomFeistel | RobustInteraction |    2870506 |      73139 |    39.25x
+Sha256PlusFeistel | Concatenation |   14776259 |      68577 |   215.47x
+Sha256PlusFeistel | XorSum |      14909 |       4120 |     3.62x
+Sha256PlusFeistel | HashThenHash |      12020 |      76739 |     0.16x
+Sha256PlusFeistel | Interacting |   11909323 |      64484 |   184.69x
+Sha256PlusFeistel | WidePipe |       2955 |      64484 |     0.05x
+Sha256PlusFeistel | RobustInteraction |   33554432 |      68577 |   489.30x
+FeistelPlusSha256 | Concatenation |    7554575 |      73139 |   103.29x
+FeistelPlusSha256 | XorSum |       5454 |       4120 |     1.32x
+FeistelPlusSha256 | HashThenHash |       4888 |      51698 |     0.09x
+FeistelPlusSha256 | Interacting |   33554432 |      69046 |   485.97x
+FeistelPlusSha256 | WidePipe |       5321 |      69046 |     0.08x
+FeistelPlusSha256 | RobustInteraction |    2429009 |      73139 |    33.21x
+
+--- START: bits=24 | Direct Limit=83886080 | Joux Levels=12 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |   33398056 |      68577 |   487.02x
+StandardSha256 | XorSum |       5096 |       4120 |     1.24x
+StandardSha256 | HashThenHash |       3970 |      60831 |     0.07x
+StandardSha256 | Interacting |   33167730 |      64484 |   514.36x
+StandardSha256 | WidePipe |       2955 |      64484 |     0.05x
+StandardSha256 | RobustInteraction |   13689398 |      68577 |   199.62x
+CustomFeistel | Concatenation |   15125674 |      73139 |   206.81x
+CustomFeistel | XorSum |       5598 |       4120 |     1.36x
+CustomFeistel | HashThenHash |       2652 |      71673 |     0.04x
+CustomFeistel | Interacting |    6448915 |      69046 |    93.40x
+CustomFeistel | WidePipe |       5321 |      69046 |     0.08x
+CustomFeistel | RobustInteraction |    2870506 |      73139 |    39.25x
+Sha256PlusFeistel | Concatenation |   14776259 |      68577 |   215.47x
+Sha256PlusFeistel | XorSum |      14909 |       4120 |     3.62x
+Sha256PlusFeistel | HashThenHash |      12020 |      76739 |     0.16x
+Sha256PlusFeistel | Interacting |   11909323 |      64484 |   184.69x
+Sha256PlusFeistel | WidePipe |       2955 |      64484 |     0.05x
+Sha256PlusFeistel | RobustInteraction |   20565894 |      68577 |   299.89x
+FeistelPlusSha256 | Concatenation |    7554575 |      73139 |   103.29x
+FeistelPlusSha256 | XorSum |       5454 |       4120 |     1.32x
+FeistelPlusSha256 | HashThenHash |       4888 |      51698 |     0.09x
+FeistelPlusSha256 | Interacting |   32216104 |      69046 |   466.59x
+FeistelPlusSha256 | WidePipe |       5321 |      69046 |     0.08x
+FeistelPlusSha256 | RobustInteraction |    2429009 |      73139 |    33.21x
+
+--- START: bits=26 | Direct Limit=335544320 | Joux Levels=13 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |   89646710 |     141347 |   634.23x
+StandardSha256 | XorSum |       5096 |       8218 |     0.62x
+StandardSha256 | HashThenHash |       6523 |     133318 |     0.05x
+StandardSha256 | Interacting |  132397776 |     133158 |   994.29x
+StandardSha256 | WidePipe |       4079 |     133158 |     0.03x
+StandardSha256 | RobustInteraction |  104931374 |     141347 |   742.37x
+CustomFeistel | Concatenation |   50449764 |     168518 |   299.37x
+CustomFeistel | XorSum |       6115 |       8218 |     0.74x
+CustomFeistel | HashThenHash |       7836 |     149940 |     0.05x
+CustomFeistel | Interacting |   36148916 |     160329 |   225.47x
+CustomFeistel | WidePipe |      20863 |     160329 |     0.13x
+CustomFeistel | RobustInteraction |   45376228 |     168518 |   269.27x
+Sha256PlusFeistel | Concatenation |   90494168 |     141347 |   640.23x
+Sha256PlusFeistel | XorSum |      14909 |       8218 |     1.81x
+Sha256PlusFeistel | HashThenHash |      12569 |     129648 |     0.10x
+Sha256PlusFeistel | Interacting |   68360266 |     133158 |   513.38x
+Sha256PlusFeistel | WidePipe |       4079 |     133158 |     0.03x
+Sha256PlusFeistel | RobustInteraction |   35845071 |     141347 |   253.60x
+FeistelPlusSha256 | Concatenation |   89792663 |     168518 |   532.84x
+FeistelPlusSha256 | XorSum |      11004 |       8218 |     1.34x
+FeistelPlusSha256 | HashThenHash |       8026 |     118006 |     0.07x
+FeistelPlusSha256 | Interacting |   60120154 |     160329 |   374.98x
+FeistelPlusSha256 | WidePipe |      20863 |     160329 |     0.13x
+FeistelPlusSha256 | RobustInteraction |   86904534 |     168518 |   515.70x
+
+--- TEST ROUND: bits=14 | Direct Limit=81920 | Joux Levels=10 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |      38058 |       2741 |    13.88x
+StandardSha256 | XorSum |        233 |       1044 |     0.22x
+StandardSha256 | HashThenHash |        204 |       1691 |     0.12x
+StandardSha256 | Interacting |      40484 |       1720 |    23.54x
+StandardSha256 | WidePipe |        280 |       1720 |     0.16x
+StandardSha256 | RobustInteraction |      12733 |       2741 |     4.65x
+CustomFeistel | Concatenation |       6440 |       2630 |     2.45x
+CustomFeistel | XorSum |         47 |       1044 |     0.05x
+CustomFeistel | HashThenHash |        180 |       1412 |     0.13x
+CustomFeistel | Interacting |       7329 |       1609 |     4.56x
+CustomFeistel | WidePipe |        178 |       1609 |     0.11x
+CustomFeistel | RobustInteraction |       4586 |       2630 |     1.74x
+Sha256PlusFeistel | Concatenation |      22061 |       2741 |     8.05x
+Sha256PlusFeistel | XorSum |        100 |       1044 |     0.10x
+Sha256PlusFeistel | HashThenHash |        169 |       1985 |     0.09x
+Sha256PlusFeistel | Interacting |      11022 |       1720 |     6.41x
+Sha256PlusFeistel | WidePipe |        280 |       1720 |     0.16x
+Sha256PlusFeistel | RobustInteraction |      20951 |       2741 |     7.64x
+FeistelPlusSha256 | Concatenation |      11978 |       2630 |     4.55x
+FeistelPlusSha256 | XorSum |        101 |       1044 |     0.10x
+FeistelPlusSha256 | HashThenHash |         75 |       1537 |     0.05x
+FeistelPlusSha256 | Interacting |       1474 |       1609 |     0.92x
+FeistelPlusSha256 | WidePipe |        178 |       1609 |     0.11x
+FeistelPlusSha256 | RobustInteraction |      28326 |       2630 |    10.77x
+--- END OF ROUND bits=14 ---
+
+
+--- TEST ROUND: bits=16 | Direct Limit=327680 | Joux Levels=10 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |      79267 |       4324 |    18.33x
+StandardSha256 | XorSum |        413 |       1044 |     0.40x
+StandardSha256 | HashThenHash |        204 |       2408 |     0.08x
+StandardSha256 | Interacting |      74841 |       3303 |    22.66x
+StandardSha256 | WidePipe |        280 |       3303 |     0.08x
+StandardSha256 | RobustInteraction |      68011 |       4324 |    15.73x
+CustomFeistel | Concatenation |      65544 |       4249 |    15.43x
+CustomFeistel | XorSum |        139 |       1044 |     0.13x
+CustomFeistel | HashThenHash |        180 |       3987 |     0.05x
+CustomFeistel | Interacting |      28378 |       3228 |     8.79x
+CustomFeistel | WidePipe |        178 |       3228 |     0.06x
+CustomFeistel | RobustInteraction |      10231 |       4249 |     2.41x
+Sha256PlusFeistel | Concatenation |      89885 |       4324 |    20.79x
+Sha256PlusFeistel | XorSum |        973 |       1044 |     0.93x
+Sha256PlusFeistel | HashThenHash |        169 |       2583 |     0.07x
+Sha256PlusFeistel | Interacting |      60843 |       3303 |    18.42x
+Sha256PlusFeistel | WidePipe |        280 |       3303 |     0.08x
+Sha256PlusFeistel | RobustInteraction |      58779 |       4324 |    13.59x
+FeistelPlusSha256 | Concatenation |      34227 |       4249 |     8.06x
+FeistelPlusSha256 | XorSum |        411 |       1044 |     0.39x
+FeistelPlusSha256 | HashThenHash |        347 |       4019 |     0.09x
+FeistelPlusSha256 | Interacting |      78983 |       3228 |    24.47x
+FeistelPlusSha256 | WidePipe |        178 |       3228 |     0.06x
+FeistelPlusSha256 | RobustInteraction |     134345 |       4249 |    31.62x
+--- END OF ROUND bits=16 ---
+
+
+--- TEST ROUND: bits=18 | Direct Limit=1310720 | Joux Levels=10 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |     130474 |       5467 |    23.87x
+StandardSha256 | XorSum |        717 |       1044 |     0.69x
+StandardSha256 | HashThenHash |        204 |       3979 |     0.05x
+StandardSha256 | Interacting |     512213 |       4446 |   115.21x
+StandardSha256 | WidePipe |        409 |       4446 |     0.09x
+StandardSha256 | RobustInteraction |     327724 |       5467 |    59.95x
+CustomFeistel | Concatenation |      82535 |      10587 |     7.80x
+CustomFeistel | XorSum |        139 |       1044 |     0.13x
+CustomFeistel | HashThenHash |        180 |       5782 |     0.03x
+CustomFeistel | Interacting |     159571 |       9566 |    16.68x
+CustomFeistel | WidePipe |        503 |       9566 |     0.05x
+CustomFeistel | RobustInteraction |      94336 |      10587 |     8.91x
+Sha256PlusFeistel | Concatenation |     119479 |       5467 |    21.85x
+Sha256PlusFeistel | XorSum |       1003 |       1044 |     0.96x
+Sha256PlusFeistel | HashThenHash |        694 |       7160 |     0.10x
+Sha256PlusFeistel | Interacting |      79740 |       4446 |    17.94x
+Sha256PlusFeistel | WidePipe |        409 |       4446 |     0.09x
+Sha256PlusFeistel | RobustInteraction |     541470 |       5467 |    99.04x
+FeistelPlusSha256 | Concatenation |     165305 |      10587 |    15.61x
+FeistelPlusSha256 | XorSum |        411 |       1044 |     0.39x
+FeistelPlusSha256 | HashThenHash |        347 |       5926 |     0.06x
+FeistelPlusSha256 | Interacting |     238792 |       9566 |    24.96x
+FeistelPlusSha256 | WidePipe |        503 |       9566 |     0.05x
+FeistelPlusSha256 | RobustInteraction |     421758 |      10587 |    39.84x
+--- END OF ROUND bits=18 ---
+
+
+--- TEST ROUND: bits=20 | Direct Limit=5242880 | Joux Levels=10 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |     448636 |      17605 |    25.48x
+StandardSha256 | XorSum |       3035 |       1044 |     2.91x
+StandardSha256 | HashThenHash |        348 |      10456 |     0.03x
+StandardSha256 | Interacting |    1294598 |      16584 |    78.06x
+StandardSha256 | WidePipe |       1507 |      16584 |     0.09x
+StandardSha256 | RobustInteraction |     790196 |      17605 |    44.88x
+CustomFeistel | Concatenation |     533814 |      16484 |    32.38x
+CustomFeistel | XorSum |        139 |       1044 |     0.13x
+CustomFeistel | HashThenHash |       1520 |      13363 |     0.11x
+CustomFeistel | Interacting |     159571 |      15463 |    10.32x
+CustomFeistel | WidePipe |       1471 |      15463 |     0.10x
+CustomFeistel | RobustInteraction |     615246 |      16484 |    37.32x
+Sha256PlusFeistel | Concatenation |     454458 |      17605 |    25.81x
+Sha256PlusFeistel | XorSum |       1187 |       1044 |     1.14x
+Sha256PlusFeistel | HashThenHash |       1062 |      17691 |     0.06x
+Sha256PlusFeistel | Interacting |     657076 |      16584 |    39.62x
+Sha256PlusFeistel | WidePipe |       1507 |      16584 |     0.09x
+Sha256PlusFeistel | RobustInteraction |    2045838 |      17605 |   116.21x
+FeistelPlusSha256 | Concatenation |    2029824 |      16484 |   123.14x
+FeistelPlusSha256 | XorSum |       1108 |       1044 |     1.06x
+FeistelPlusSha256 | HashThenHash |        551 |       9211 |     0.06x
+FeistelPlusSha256 | Interacting |     919468 |      15463 |    59.46x
+FeistelPlusSha256 | WidePipe |       1471 |      15463 |     0.10x
+FeistelPlusSha256 | RobustInteraction |    1567395 |      16484 |    95.09x
+--- END OF ROUND bits=20 ---
+
+
+--- TEST ROUND: bits=22 | Direct Limit=20971520 | Joux Levels=11 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |    3010717 |      23079 |   130.45x
+StandardSha256 | XorSum |       5096 |       2070 |     2.46x
+StandardSha256 | HashThenHash |       3970 |      35966 |     0.11x
+StandardSha256 | Interacting |    6331770 |      21034 |   301.03x
+StandardSha256 | WidePipe |       2955 |      21034 |     0.14x
+StandardSha256 | RobustInteraction |    2381078 |      23079 |   103.17x
+CustomFeistel | Concatenation |    2549922 |      27913 |    91.35x
+CustomFeistel | XorSum |        139 |       2070 |     0.07x
+CustomFeistel | HashThenHash |       1932 |      17402 |     0.11x
+CustomFeistel | Interacting |     919226 |      25868 |    35.54x
+CustomFeistel | WidePipe |       1471 |      25868 |     0.06x
+CustomFeistel | RobustInteraction |    2572412 |      27913 |    92.16x
+Sha256PlusFeistel | Concatenation |    5439701 |      23079 |   235.70x
+Sha256PlusFeistel | XorSum |       3048 |       2070 |     1.47x
+Sha256PlusFeistel | HashThenHash |       4252 |      30429 |     0.14x
+Sha256PlusFeistel | Interacting |    2318488 |      21034 |   110.23x
+Sha256PlusFeistel | WidePipe |       2955 |      21034 |     0.14x
+Sha256PlusFeistel | RobustInteraction |    4884753 |      23079 |   211.65x
+FeistelPlusSha256 | Concatenation |    6044470 |      27913 |   216.55x
+FeistelPlusSha256 | XorSum |       1537 |       2070 |     0.74x
+FeistelPlusSha256 | HashThenHash |       4888 |      34643 |     0.14x
+FeistelPlusSha256 | Interacting |    2404572 |      25868 |    92.96x
+FeistelPlusSha256 | WidePipe |       1471 |      25868 |     0.06x
+FeistelPlusSha256 | RobustInteraction |    2057432 |      27913 |    73.71x
+--- END OF ROUND bits=22 ---
+
+
+--- TEST ROUND: bits=24 | Direct Limit=83886080 | Joux Levels=12 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |   33398056 |      68577 |   487.02x
+StandardSha256 | XorSum |       5096 |       4120 |     1.24x
+StandardSha256 | HashThenHash |       3970 |      60831 |     0.07x
+StandardSha256 | Interacting |   33167730 |      64484 |   514.36x
+StandardSha256 | WidePipe |       2955 |      64484 |     0.05x
+StandardSha256 | RobustInteraction |   13689398 |      68577 |   199.62x
+CustomFeistel | Concatenation |   15125674 |      73139 |   206.81x
+CustomFeistel | XorSum |       5598 |       4120 |     1.36x
+CustomFeistel | HashThenHash |       2652 |      71673 |     0.04x
+CustomFeistel | Interacting |    6448915 |      69046 |    93.40x
+CustomFeistel | WidePipe |       5321 |      69046 |     0.08x
+CustomFeistel | RobustInteraction |    2870506 |      73139 |    39.25x
+Sha256PlusFeistel | Concatenation |   14776259 |      68577 |   215.47x
+Sha256PlusFeistel | XorSum |      14909 |       4120 |     3.62x
+Sha256PlusFeistel | HashThenHash |      12020 |      76739 |     0.16x
+Sha256PlusFeistel | Interacting |   11909323 |      64484 |   184.69x
+Sha256PlusFeistel | WidePipe |       2955 |      64484 |     0.05x
+Sha256PlusFeistel | RobustInteraction |   20565894 |      68577 |   299.89x
+FeistelPlusSha256 | Concatenation |    7554575 |      73139 |   103.29x
+FeistelPlusSha256 | XorSum |       5454 |       4120 |     1.32x
+FeistelPlusSha256 | HashThenHash |       4888 |      51698 |     0.09x
+FeistelPlusSha256 | Interacting |   32216104 |      69046 |   466.59x
+FeistelPlusSha256 | WidePipe |       5321 |      69046 |     0.08x
+FeistelPlusSha256 | RobustInteraction |    2429009 |      73139 |    33.21x
+--- END OF ROUND bits=24 ---
+
+
+--- TEST ROUND: bits=26 | Direct Limit=335544320 | Joux Levels=13 ---
+Algorithm Pair       | Combination       |   Dir Iter |  Joux Iter |    Ratio
+StandardSha256 | Concatenation |   89646710 |     141347 |   634.23x
+StandardSha256 | XorSum |       5096 |       8218 |     0.62x
+StandardSha256 | HashThenHash |       6523 |     133318 |     0.05x
+StandardSha256 | Interacting |  132397776 |     133158 |   994.29x
+StandardSha256 | WidePipe |       4079 |     133158 |     0.03x
+StandardSha256 | RobustInteraction |  104931374 |     141347 |   742.37x
+CustomFeistel | Concatenation |   50449764 |     168518 |   299.37x
+CustomFeistel | XorSum |       6115 |       8218 |     0.74x
+CustomFeistel | HashThenHash |       7836 |     149940 |     0.05x
+CustomFeistel | Interacting |   36148916 |     160329 |   225.47x
+CustomFeistel | WidePipe |      20863 |     160329 |     0.13x
+CustomFeistel | RobustInteraction |   45376228 |     168518 |   269.27x
+Sha256PlusFeistel | Concatenation |   90494168 |     141347 |   640.23x
+Sha256PlusFeistel | XorSum |      14909 |       8218 |     1.81x
+Sha256PlusFeistel | HashThenHash |      12569 |     129648 |     0.10x
+Sha256PlusFeistel | Interacting |   68360266 |     133158 |   513.38x
+Sha256PlusFeistel | WidePipe |       4079 |     133158 |     0.03x
+Sha256PlusFeistel | RobustInteraction |   35845071 |     141347 |   253.60x
+FeistelPlusSha256 | Concatenation |   89792663 |     168518 |   532.84x
+FeistelPlusSha256 | XorSum |      11004 |       8218 |     1.34x
+FeistelPlusSha256 | HashThenHash |       8026 |     118006 |     0.07x
+FeistelPlusSha256 | Interacting |   60120154 |     160329 |   374.98x
+FeistelPlusSha256 | WidePipe |      20863 |     160329 |     0.13x
+FeistelPlusSha256 | RobustInteraction |   86904534 |     168518 |   515.70x
+--- END OF ROUND bits=26 ---
+
