@@ -15,7 +15,6 @@ struct AttackParams {
 impl AttackParams {
     fn new(bits: u32) -> Self {
         let total_bits = bits * 2;
-        // Ожидание Birthday Attack для 26 бит (52 итого) ≈ 83 млн.
         let expected_direct = (1.25 * 2.0f64.powf(total_bits as f64 / 2.0)) as u64;
         let mem_cap = 100_000_000; 
 
@@ -28,7 +27,7 @@ impl AttackParams {
     }
 }
 
-// --- CORE CRYPTO ENGINE (BY COLLEAGUE) ---
+// --- CORE CRYPTO ENGINE ---
 
 fn base_compress(iv: &[u8], m: u64, target_bits: u32) -> (u64, Vec<u8>) {
     let mask = if target_bits >= 64 { !0u64 } else { (1u64 << target_bits) - 1 };
@@ -43,7 +42,7 @@ fn base_compress(iv: &[u8], m: u64, target_bits: u32) -> (u64, Vec<u8>) {
 
     let hash: [u8; 32] = Sha256::digest(&input).into();
     
-    // Davies-Meyer: E(m, H) XOR H
+    // Davies-Meyer structure
     let e = u64::from_be_bytes(hash[..8].try_into().unwrap());
     let s = u64::from_le_bytes(iv_padded[..8].try_into().unwrap());
 
@@ -53,8 +52,8 @@ fn base_compress(iv: &[u8], m: u64, target_bits: u32) -> (u64, Vec<u8>) {
 
 // --- COMBINERS LOGIC ---
 
-#[derive(Copy, Clone, Debug)]
-enum ComboType { Concatenation, XorSum, HashThenHash, Interacting, WidePipe, RobustInteraction }
+#[derive(Copy, Clone, Debug, PartialEq)]
+enum ComboType { Concatenation, XorSum, Interacting, WidePipe, RobustInteraction }
 
 fn combine_step(cmb: ComboType, iv1: &[u8], iv2: &[u8], m: u64, bits: u32) -> (u128, Vec<u8>, Vec<u8>) {
     let mask = (1u64 << bits) - 1;
@@ -69,25 +68,19 @@ fn combine_step(cmb: ComboType, iv1: &[u8], iv2: &[u8], m: u64, bits: u32) -> (u
             let (h2, v2) = base_compress(iv2, m, bits);
             ((h1 ^ h2) as u128, v1, v2)
         }
-        ComboType::HashThenHash => {
-            let (_, v1) = base_compress(iv1, m, bits);
-            let (h2, v2) = base_compress(&v1, m, bits);
-            ((h2 as u128) << 64, v1, v2)
-        }
         ComboType::Interacting => {
             let (h1, v1) = base_compress(iv1, m, bits);
-            let (h2, v2) = base_compress(&v1, m, bits); // h2 зависит от состояния первой функции
+            let (h2, v2) = base_compress(&v1, m, bits);
             (((h1 & mask) as u128) << 64 | ((h2 & mask) as u128), v1, v2)
         }
         ComboType::WidePipe => {
-            // Имитация WidePipe: используем удвоенное внутреннее состояние
             let (h_w, v_w) = base_compress(iv1, m, bits * 2);
             let fh = h_w & mask;
             (((fh as u128) << 64) | (fh as u128), v_w.clone(), v_w)
         }
         ComboType::RobustInteraction => {
             let (h1, v1) = base_compress(iv1, m, bits);
-            let (h2, v2) = base_compress(iv2, m ^ h1, bits); // Вторая функция зависит от выхода первой
+            let (h2, v2) = base_compress(iv2, m ^ h1, bits);
             (((h1 & mask) as u128) << 64 | ((h2 & mask) as u128), v1, v2)
         }
     }
@@ -118,7 +111,10 @@ fn attack_joux(cmb: ComboType, bits: u32, params: &AttackParams) -> u64 {
         let (m1, m2, next_iv) = loop {
             total_iters += 1;
             let (h, v1, _) = combine_step(cmb, &iv1, &iv2, m, bits);
-            let h1 = (h >> 64) as u64; // Хэш первой "трубы"
+            
+            // Извлекаем хэш первой функции для поиска мультиколлизий
+            let h1 = if cmb == ComboType::XorSum { h as u64 } else { (h >> 64) as u64 };
+            
             if let Some(&old_m) = seen.get(&h1) { break (old_m, m, v1); }
             seen.insert(h1, m);
             m += 1; 
@@ -149,13 +145,12 @@ fn attack_joux(cmb: ComboType, bits: u32, params: &AttackParams) -> u64 {
 // --- MAIN ---
 
 fn main() -> std::io::Result<()> {
-    let mut log_file = OpenOptions::new().create(true).append(true).open("davies_meyer_combos.log")?;
-    let bit_range = (26..=28).step_by(2);
+    let mut log_file = OpenOptions::new().create(true).append(true).open("results_presentation.log")?;
+    let bit_range = (14..=28).step_by(2);
 
     let combos = [
         ComboType::Concatenation, 
         ComboType::XorSum, 
-        ComboType::HashThenHash, 
         ComboType::Interacting, 
         ComboType::WidePipe, 
         ComboType::RobustInteraction
@@ -163,7 +158,7 @@ fn main() -> std::io::Result<()> {
 
     for bits in bit_range {
         let params = AttackParams::new(bits);
-        println!("\n--- Исследование: bits={} (Итоговый хэш до {} бит) ---", bits, bits * 2);
+        println!("\n--- Исследование: bits={} (Итоговый хэш {} бит) ---", bits, bits * 2);
         println!("{:<20} | {:>12} | {:>12} | {:>8}", "Combination", "Dir Iter", "Joux Iter", "Ratio");
         println!("{}", "-".repeat(60));
 
